@@ -1,0 +1,8 @@
+Flask
+opencv-python
+numpy
+face-recognition
+ultralytics
+pytesseract
+easyocr
+Pillow
