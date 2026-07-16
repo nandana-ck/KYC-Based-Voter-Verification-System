@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# Database
+voting_system.db
+
+# Dataset
+images/voters/
+
+# Trained model (if not uploading)
+models/
+
+# Virtual environments
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
