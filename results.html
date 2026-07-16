@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Election Results</title>
+<style>
+body {
+    background:#020617;
+    color:white;
+    font-family:Segoe UI;
+    text-align:center;
+}
+table {
+    margin:auto;
+    margin-top:50px;
+    border-collapse:collapse;
+    width:50%;
+}
+th, td {
+    padding:15px;
+    border-bottom:1px solid #334155;
+}
+th {
+    background:#1e293b;
+}
+.winner {
+    margin-top:40px;
+    font-size:26px;
+    color:#22c55e;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<h1>Election Results</h1>
+
+<table>
+<tr>
+<th>Candidate</th>
+<th>Votes</th>
+</tr>
+{% for c in data %}
+<tr>
+<td>{{ c[0] }}</td>
+<td>{{ c[1] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="winner">
+🏆 Winner: {{ winner }}
+</div>
+
+</body>
+</html>

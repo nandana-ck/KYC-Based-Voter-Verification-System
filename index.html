@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Voting System</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top bar */
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 50px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel {
+            width: 520px;
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        .panel h1 {
+            margin-bottom: 10px;
+            font-size: 26px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #0f172a;
+            margin-bottom: 35px;
+        }
+
+        .panel h2 {
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .actions a {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: 0.2s;
+            color: white;
+        }
+
+        .voter {
+            background: #0f172a;
+        }
+
+        .voter:hover {
+            background: #0f172a;
+        }
+
+        .admin {
+            background: #0f172a;
+        }
+
+        .admin:hover {
+            background:#0f172a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    E-Voting System
+</header>
+
+<main>
+    <div class="panel">
+        <h1>Welcome to the E-Voting System</h1>
+        <div class="subtitle">
+            Secure • Transparent • Technology-Driven Voting Platform
+        </div>
+
+        <h2>Select Login Type</h2>
+
+        <div class="actions">
+            <a href="/vote" class="voter">Voter Login</a>
+            <a href="/admin" class="admin">Admin Login</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    Secure Electronic Voting Platform
+</footer>
+
+</body>
+</html>

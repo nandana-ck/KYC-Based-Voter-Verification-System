@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voter Verification</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #020617;
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+video {
+    width: 640px;
+    height: 480px;
+    background: black;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+}
+
+#statusText {
+    margin-top: 25px;
+    font-size: 18px;
+    background: #1e293b;
+    padding: 14px 30px;
+    border-radius: 10px;
+    min-width: 420px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<video id="video" autoplay playsinline></video>
+<div id="idBox" style="
+    margin-top:15px;
+    font-size:16px;
+    color:#22c55e;
+    font-weight:600;">
+    Detected ID: —
+</div>
+
+<div id="statusText">Initializing camera…</div>
+
+<script>
+const video = document.getElementById("video");
+const statusText = document.getElementById("statusText");
+
+let phase = "face";
+let faceStart, idStart;
+
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+    video.srcObject = stream;
+    video.onloadedmetadata = () => {
+        video.play();
+        faceStart = Date.now();
+        statusText.textContent = "Scanning face…";
+        scan();
+    };
+});
+
+function capture(){
+    const c = document.createElement("canvas");
+    c.width = video.videoWidth;
+    c.height = video.videoHeight;
+    c.getContext("2d").drawImage(video,0,0);
+    return c.toDataURL("image/jpeg");
+}
+
+function scan(){
+    if(phase === "face"){
+        if(Date.now() - faceStart > 5000){
+            statusText.textContent = "Face not matched. Please try again.";
+            return;
+        }
+
+        fetch("/verify_face",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({image:capture()})
+        })
+        .then(r=>r.json())
+        .then(d=>{
+            if(d.status === "success"){
+                phase = "id";
+                idStart = Date.now();
+                statusText.textContent = "Face verified. Show your ID card...";
+                setTimeout(scan,500);
+            } else {
+                setTimeout(scan,1000);
+            }
+        });
+    }
+
+    if(phase === "id"){
+        if(Date.now() - idStart > 9000){
+            statusText.textContent = "ID card not detected or unclear.";
+            return;
+        }
+
+        fetch("/verify_id",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({image:capture()})
+        })
+        .then(r=>r.json())
+        .then(d=>{
+            if(d.detected){
+                document.getElementById("idBox").innerText = "Detected ID: " + d.detected;
+            }
+
+            if(d.status === "success"){
+                statusText.textContent = "Verification successful. Redirecting…";
+                setTimeout(()=>window.location="/vote_page",1200);
+            } else {
+                statusText.textContent = d.message;
+                setTimeout(scan,1000);
+            }
+        });
+    }
+}
+
+</script>
+
+</body>
+</html>

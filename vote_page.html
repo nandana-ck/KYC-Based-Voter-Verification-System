@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cast Your Vote</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: white;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 40px;
+            width: 450px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: #334155;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background: #475569;
+        }
+
+        .option input {
+            margin-right: 14px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option span {
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: #22c55e;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #020617;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Select Your Candidate</h2>
+
+    <form method="POST">
+        {% for c in candidates %}
+            <label class="option">
+                <input type="radio" name="candidate" value="{{ c[0] }}" required>
+                <span>{{ c[0] }}</span>
+            </label>
+        {% endfor %}
+
+        <button type="submit">Submit Vote</button>
+    </form>
+</div>
+
+</body>
+</html>

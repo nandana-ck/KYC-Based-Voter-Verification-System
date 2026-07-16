@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+    .btn {
+    background:#22c55e;
+    color:white;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:600;
+    display:inline-block;
+    margin-bottom:20px;
+}
+
+        body {
+            background: #0f172a;
+            font-family: Arial, sans-serif;
+            color: white;
+            padding: 30px;
+        }
+        table {
+            width: 95%;
+            margin: auto;
+            border-collapse: collapse;
+            background: #1e293b;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #020617;
+        }
+        tr:nth-child(even) {
+            background: #334155;
+        }
+        img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #64748b;
+        }
+        .voted { color: #22c55e; font-weight: bold; }
+        .not-voted { color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align:center;">Admin Dashboard</h1>
+<a href="/results" class="btn">View Results</a>
+
+
+<table>
+    <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Status</th>
+    </tr>
+
+    {% for v in voters %}
+    <tr>
+        <td>
+            <img src="/voter_image/{{ v[3].split('/')[-1] }}">
+        </td>
+        <td>{{ v[0] }}</td>
+        <td>{{ v[1] }}</td>
+        <td class="{{ 'voted' if v[2] else 'not-voted' }}">
+            {{ 'Voted' if v[2] else 'Not Voted' }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
